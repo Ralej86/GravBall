@@ -1,7 +1,7 @@
 module.exports = {
   entry: "./lib/canvas.js",
   output: {
-  	filename: "./lib/bundle.js"
+  	filename: "./bundle.js"
   },
   devtool: 'source-map',
 };

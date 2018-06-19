@@ -81,13 +81,14 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _particle_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./particle.js */ "./lib/particle.js");
+/* harmony import */ var _game_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./game.js */ "./lib/game.js");
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
   let canvas = document.getElementById("canvas")
   canvas.height = 600;
   canvas.width = 900;
-  console.log("hello");
 
   let ctx = canvas.getContext("2d");
 
@@ -97,14 +98,41 @@ document.addEventListener("DOMContentLoaded", () => {
   let dx = (Math.random() - 0.5) * 4;
   let dy = (Math.random() - 0.5) * 4
 
-  for (var i = 0; i < 20; i++) {
-    circleArray.push(new _particle_js__WEBPACK_IMPORTED_MODULE_0__["default"](ctx, x, y, 5, dx, dy))
-  }
 
   for (var i = 0; i < circleArray.length; i++) {
     circleArray[i].animate()
   }
 })
+
+
+/***/ }),
+
+/***/ "./lib/game.js":
+/*!*********************!*\
+  !*** ./lib/game.js ***!
+  \*********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _particle_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./particle.js */ "./lib/particle.js");
+
+
+class Game {
+  constructor(ctx) {
+    this.particles = [];
+    this.ctx = ctx;
+  }
+
+  populateParticles() {
+    for (var i = 0; i < 20; i++) {
+      this.particle.push(new _particle_js__WEBPACK_IMPORTED_MODULE_0__["default"]())
+    }
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Game);
 
 
 /***/ }),
