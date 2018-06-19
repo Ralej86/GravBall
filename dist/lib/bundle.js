@@ -90,9 +90,20 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("hello");
 
   let ctx = canvas.getContext("2d");
-  const particle = new _particle_js__WEBPACK_IMPORTED_MODULE_0__["default"](ctx);
-  // particle.draw()
-  particle.animate()
+
+  let circleArray = [];
+  let x = Math.random() * ctx.canvas.width;
+  let y = Math.random() * ctx.canvas.height;
+  let dx = (Math.random() - 0.5) * 4;
+  let dy = (Math.random() - 0.5) * 4
+
+  for (var i = 0; i < 20; i++) {
+    circleArray.push(new _particle_js__WEBPACK_IMPORTED_MODULE_0__["default"](ctx, x, y, 5, dx, dy))
+  }
+
+  for (var i = 0; i < circleArray.length; i++) {
+    circleArray[i].animate()
+  }
 })
 
 
@@ -107,30 +118,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-
-  // Drawing an Arc/Circle
-  //ctx.arc(x, y, radius, start_angle, end_angle, drawClockwise)
-
-  // ctx.beginPath();
-  // ctx.arc(200, 200, 30, 0, Math.PI * 2, false);
-  // ctx.strokeStyle = "blue";
-  // ctx.stroke();
-
-
-    // let animate() {
-    //   requestAnimationFrame(animate);
-    //   console.log("increment");
-    // }
-    //
-    // animate();
-
 class Particle {
-  constructor(ctx) {
+  constructor(ctx, x, y, radius, dx, dy) {
     this.ctx = ctx;
-    this.x = 200;
-    this.y = 200;
-    this.dx = 1;
-    this.dy = 1;
+    // this.x = Math.random() * this.ctx.canvas.width;
+    this.x = x;
+    // this.y = Math.random() * this.ctx.canvas.height;
+    this.y = y;
+    this.radius = radius;
+    // this.dx = (Math.random() - 0.5) * 4;
+    this.dx = dx;
+    // this.dy = (Math.random() - 0.5) * 4;
+    this.dy = dy;
 
     this.animate = this.animate.bind(this);
     this.update = this.update.bind(this);
@@ -138,13 +137,23 @@ class Particle {
 
   draw() {
     this.ctx.beginPath();
-    this.ctx.arc(this.x, this.y, 30, 0, Math.PI * 2);
-    this.ctx.strokeStyle = "blue";
+    this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    this.ctx.fillStyle = "white";
+    this.ctx.fill();
+    this.ctx.strokeStyle = "white";
     this.ctx.stroke();
   }
 
   update() {
     this.draw()
+
+    if (this.x + this.radius > this.ctx.canvas.width || this.x - this.radius < 0) {
+      this.dx = -this.dx;
+    }
+
+    if (this.y + this.radius > this.ctx.canvas.height || this.y - this.radius < 0) {
+      this.dy = -this.dy;
+    }
 
     this.x += this.dx;
     this.y += this.dy;
@@ -153,6 +162,7 @@ class Particle {
   animate() {
     requestAnimationFrame(this.animate)
     this.ctx.clearRect(0,0, this.ctx.canvas.width, this.ctx.canvas.height)
+
 
     this.update()
 
