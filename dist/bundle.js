@@ -92,16 +92,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let ctx = canvas.getContext("2d");
 
-  let circleArray = [];
-  let x = Math.random() * ctx.canvas.width;
-  let y = Math.random() * ctx.canvas.height;
-  let dx = (Math.random() - 0.5) * 4;
-  let dy = (Math.random() - 0.5) * 4
+  // let x = Math.random() * ctx.canvas.width;
+  // let y = Math.random() * ctx.canvas.height;
+  // let dx = (Math.random() - 0.5) * 4;
+  // let dy = (Math.random() - 0.5) * 4
+  // let particle = new Particle(ctx, x, y, 5, dx, dy);
 
+  // particle.animate();
 
-  for (var i = 0; i < circleArray.length; i++) {
-    circleArray[i].animate()
-  }
+  let game = new _game_js__WEBPACK_IMPORTED_MODULE_1__["default"](ctx);
+  game.populateParticles();
+  game.animate();
 })
 
 
@@ -121,13 +122,28 @@ __webpack_require__.r(__webpack_exports__);
 
 class Game {
   constructor(ctx) {
-    this.particles = [];
     this.ctx = ctx;
+    this.particles = [];
+
+    this.animate = this.animate.bind(this);
   }
 
   populateParticles() {
     for (var i = 0; i < 20; i++) {
-      this.particle.push(new _particle_js__WEBPACK_IMPORTED_MODULE_0__["default"]())
+      let x = Math.random() * this.ctx.canvas.width;
+      let y = Math.random() * this.ctx.canvas.height;
+      let dx = (Math.random() - 0.5) * 4;
+      let dy = (Math.random() - 0.5) * 4
+      this.particles.push(new _particle_js__WEBPACK_IMPORTED_MODULE_0__["default"](this.ctx, x, y, 5, dx, dy))
+    }
+  }
+
+  animate() {
+    requestAnimationFrame(this.animate);
+    this.ctx.clearRect(0,0,this.ctx.canvas.width, this.ctx.canvas.height);
+
+    for (var i = 0; i < this.particles.length; i++) {
+      this.particles[i].update();
     }
   }
 }
@@ -149,14 +165,10 @@ __webpack_require__.r(__webpack_exports__);
 class Particle {
   constructor(ctx, x, y, radius, dx, dy) {
     this.ctx = ctx;
-    // this.x = Math.random() * this.ctx.canvas.width;
     this.x = x;
-    // this.y = Math.random() * this.ctx.canvas.height;
     this.y = y;
     this.radius = radius;
-    // this.dx = (Math.random() - 0.5) * 4;
     this.dx = dx;
-    // this.dy = (Math.random() - 0.5) * 4;
     this.dy = dy;
 
     this.animate = this.animate.bind(this);
@@ -190,7 +202,6 @@ class Particle {
   animate() {
     requestAnimationFrame(this.animate)
     this.ctx.clearRect(0,0, this.ctx.canvas.width, this.ctx.canvas.height)
-
 
     this.update()
 
