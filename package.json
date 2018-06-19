@@ -1,0 +1,24 @@
+{
+  "name": "js_project",
+  "version": "1.0.0",
+  "description": "A canvas element that allows users to play around with the effects of gravity of black holes and particles.",
+  "main": "canvas.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --watch --mode=development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ralej86/GravBall.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ralej86/GravBall/issues"
+  },
+  "homepage": "https://github.com/Ralej86/GravBall#readme"
+}
