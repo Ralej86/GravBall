@@ -99,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let game = new _game_js__WEBPACK_IMPORTED_MODULE_1__["default"](ctx);
   game.populateParticles();
+  game.populateGravityBall();
   game.animate();
 })
 
@@ -115,12 +116,15 @@ document.addEventListener("DOMContentLoaded", () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _particle_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./particle.js */ "./lib/particle.js");
+/* harmony import */ var _gravity_ball_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gravity_ball.js */ "./lib/gravity_ball.js");
+
 
 
 class Game {
   constructor(ctx) {
     this.ctx = ctx;
     this.particles = [];
+    this.gravityBalls = [];
 
     this.animate = this.animate.bind(this);
   }
@@ -135,6 +139,11 @@ class Game {
     }
   }
 
+  populateGravityBall() {
+    debugger
+    this.gravityBalls.push(new _gravity_ball_js__WEBPACK_IMPORTED_MODULE_1__["default"](this.ctx));
+  }
+
   animate() {
     requestAnimationFrame(this.animate);
     this.ctx.clearRect(0,0,this.ctx.canvas.width, this.ctx.canvas.height);
@@ -142,10 +151,60 @@ class Game {
     for (var i = 0; i < this.particles.length; i++) {
       this.particles[i].update();
     }
+
+    for (var i = 0; i < this.gravityBalls.length; i++) {
+      this.gravityBalls[i].update();
+    }
   }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Game);
+
+
+/***/ }),
+
+/***/ "./lib/gravity_ball.js":
+/*!*****************************!*\
+  !*** ./lib/gravity_ball.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+class GravityBall{
+  constructor(ctx) {
+    this.ctx = ctx;
+    this.x = 200;
+    this.y = 200;
+    this.radius = 15;
+    this.dx = 0;
+    this.dy = 0;
+
+    this.update = this.update.bind(this);
+    this.animate = this.animate.bind(this);
+  }
+
+  draw() {
+    this.ctx.beginPath();
+    this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    this.ctx.fillStyle = "black";
+    this.ctx.fill();
+    this.ctx.strokeStyle = "black";
+    this.ctx.stroke();
+  }
+
+  update() {
+    this.draw();
+  }
+
+  animate() {
+    this.update();
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (GravityBall);
 
 
 /***/ }),
@@ -168,8 +227,8 @@ class Particle {
     this.dx = dx;
     this.dy = dy;
 
-    this.animate = this.animate.bind(this);
     this.update = this.update.bind(this);
+    this.animate = this.animate.bind(this);
   }
 
   draw() {
@@ -182,7 +241,7 @@ class Particle {
   }
 
   update() {
-    this.draw()
+    this.draw();
 
     if (this.x + this.radius > this.ctx.canvas.width || this.x - this.radius < 0) {
       this.dx = -this.dx;
@@ -197,10 +256,10 @@ class Particle {
   }
 
   animate() {
-    requestAnimationFrame(this.animate)
-    this.ctx.clearRect(0,0, this.ctx.canvas.width, this.ctx.canvas.height)
+    // requestAnimationFrame(this.animate)
+    // this.ctx.clearRect(0,0, this.ctx.canvas.width, this.ctx.canvas.height)
 
-    this.update()
+    this.update();
 
   }
 }
