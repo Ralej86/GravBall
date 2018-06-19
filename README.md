@@ -1,17 +1,16 @@
 # GravBall
 ## Background and Overview
-A HTML canvas element that allows users to play around with the effects of gravity of black holes and particles.
-
+A canvas element that allows users to play around with the effects of gravity of black holes and particles.
 
 ## Functionality and MVP
 In GravBall, users have the ability to:
 
-- [ ] Place and remove a gravity ball on the map
-- [ ]
+- [ ] Place and remove multiple gravity balls on the map
+- [ ] Adjust the amount of flying particles
 
 In addition,
-- [ ] A header with information about the app
-- [ ] A sidebar that serves as an icon legend
+- [ ] A panel for customizing amount of particles and gravity balls
+- [ ] Information on what to do
 
 ## Wireframe
 null
@@ -19,16 +18,14 @@ null
 ## Architecture and Technologies
 This project will be implemented with the following technologies:
 * Vanilla Javascript for overall structure
-* Google Maps API for map implementation
-* Mountain Project Routes API for locations of popular climbing areas
-* OpenWeatherMap API for weather information
+* `HTML 5 Canvas` for DOM manipulation and rendering
 * Webpack to bundle and serve scripts
 
 In addition to the webpack entry file, there will be other scripts:
 
 `particle.js` to establish the occurrence of particles on the map which will be solely attracted to the black holes
 
-`grav_ball.js` to handle the logic of
+`grav_ball.js` to handle the gravity balls
 
 `board.js` to handle the creation of Maps markers and how a user can interact with them
 
