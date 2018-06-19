@@ -92,13 +92,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let ctx = canvas.getContext("2d");
 
-  // let x = Math.random() * ctx.canvas.width;
-  // let y = Math.random() * ctx.canvas.height;
-  // let dx = (Math.random() - 0.5) * 4;
-  // let dy = (Math.random() - 0.5) * 4
-  // let particle = new Particle(ctx, x, y, 5, dx, dy);
 
-  // particle.animate();
+  // window.addEventListener('mousedown', (event) => {
+  //
+  // })
 
   let game = new _game_js__WEBPACK_IMPORTED_MODULE_1__["default"](ctx);
   game.populateParticles();
