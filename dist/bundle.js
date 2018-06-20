@@ -135,12 +135,11 @@ class Game {
       let y = Math.random() * this.ctx.canvas.height;
       let dx = (Math.random() - 0.5) * 4;
       let dy = (Math.random() - 0.5) * 4
-      this.particles.push(new _particle_js__WEBPACK_IMPORTED_MODULE_0__["default"](this.ctx, x, y, 5, dx, dy))
+      this.particles.push(new _particle_js__WEBPACK_IMPORTED_MODULE_0__["default"](this.ctx, x, y, 3, dx, dy))
     }
   }
 
   populateGravityBall() {
-    debugger
     this.gravityBalls.push(new _gravity_ball_js__WEBPACK_IMPORTED_MODULE_1__["default"](this.ctx));
   }
 
@@ -148,13 +147,30 @@ class Game {
     requestAnimationFrame(this.animate);
     this.ctx.clearRect(0,0,this.ctx.canvas.width, this.ctx.canvas.height);
 
-    for (var i = 0; i < this.particles.length; i++) {
-      this.particles[i].update();
+    for (var j = 0; j < this.gravityBalls.length; j++) {
+      this.gravityBalls[j].update()
     }
 
-    for (var i = 0; i < this.gravityBalls.length; i++) {
-      this.gravityBalls[i].update();
+
+    for (var i = 0; i < this.particles.length; i++) {
+      if (this.gravityBalls.length > 0) {
+        for (var j = 0; j < this.gravityBalls.length; j++) {
+          this.particles[i].attract(this.gravityBalls[j]);
+          this.particles[i].integrate();
+          this.particles[i].update();
+        }
+
+      } else {
+        this.particles[i].update();
+      }
+      // this.particles[i].attract();
+      // this.particles[i].integrate();
     }
+    //
+    // for (var i = 0; i < this.gravityBalls.length; i++) {
+    //   this.gravityBalls[i].update();
+    // }
+
   }
 }
 
@@ -175,8 +191,8 @@ __webpack_require__.r(__webpack_exports__);
 class GravityBall{
   constructor(ctx) {
     this.ctx = ctx;
-    this.x = 200;
-    this.y = 200;
+    this.x = Math.random() * 200;
+    this.y = Math.random() * 200;
     this.radius = 15;
     this.dx = 0;
     this.dy = 0;
@@ -221,8 +237,8 @@ __webpack_require__.r(__webpack_exports__);
 class Particle {
   constructor(ctx, x, y, radius, dx, dy) {
     this.ctx = ctx;
-    this.x = x;
-    this.y = y;
+    this.x = this.oldX = x;
+    this.y = this.oldY = y;
     this.radius = radius;
     this.dx = dx;
     this.dy = dy;
@@ -238,6 +254,30 @@ class Particle {
     this.ctx.fill();
     this.ctx.strokeStyle = "white";
     this.ctx.stroke();
+  }
+
+  attract(gball) {
+    let dx = (gball.x - this.x);
+    let dy = (gball.y - this.y);
+    let dist = Math.sqrt((dx * dx) + (dy * dy));
+    if (dist > 30 ){
+      this.x += 3 * (dx / dist );
+      this.y += 3 * (dy / dist);
+    } else {
+      this.x += 2 * (dx / dist );
+      this.y += 2 * (dy / dist);
+    }
+
+  }
+
+  integrate() {
+    let dx = this.x - this.oldX;
+    let dy = this.y - this.oldY;
+    this.oldX = this.x;
+    this.oldY = this.y;
+    this.x += dx/3;
+    this.y += dy/3;
+
   }
 
   update() {
@@ -256,9 +296,6 @@ class Particle {
   }
 
   animate() {
-    // requestAnimationFrame(this.animate)
-    // this.ctx.clearRect(0,0, this.ctx.canvas.width, this.ctx.canvas.height)
-
     this.update();
 
   }
