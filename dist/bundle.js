@@ -95,14 +95,34 @@ document.addEventListener("DOMContentLoaded", () => {
     x: undefined,
     y: undefined,
   }
+  let timer = 0;
+  let stop = false;
+  let delay = 300;
 
-  window.addEventListener('mousedown', (event) => {
-
+  window.addEventListener('click', (event) => {
     mouse.x = event.x;
     mouse.y = event.y;
-    game.populateGravityBall(mouse.x, mouse.y)
+
+    timer = setTimeout(() => {
+      if (!stop) {
+        game.populateGravityBall(mouse.x, mouse.y)
+      }
+      stop = false;
+    }, delay);
+
     console.log("clicked");
-    console.log(mouse)
+    console.log(mouse);
+  })
+
+  window.addEventListener('dblclick', (event) => {
+    mouse.x = event.x;
+    mouse.y = event.y;
+    clearTimeout(timer);
+    stop = true;
+    game.removeGravityBall(mouse.x, mouse.y)
+
+    console.log("double-click");
+    console.log(mouse);
   })
 
   let game = new _game_js__WEBPACK_IMPORTED_MODULE_1__["default"](ctx);
@@ -148,6 +168,18 @@ class Game {
 
   populateGravityBall(x, y) {
     this.gravityBalls.push(new _gravity_ball_js__WEBPACK_IMPORTED_MODULE_1__["default"](this.ctx, x, y));
+  }
+
+  removeGravityBall(x, y) {
+    console.log(this.gravityBalls);
+    for (var i = 0; i < this.gravityBalls.length; i++) {
+      var gb = this.gravityBalls[i]
+      if (x < (gb.x + gb.radius) && x > (gb.x - gb.radius)
+          && y < (gb.y + gb.radius) && y > (gb.y - gb.radius))
+          this.gravityBalls.splice(i,1);
+          console.log("executed removal");
+    }
+    console.log(this.gravityBalls);
   }
 
   animate() {
