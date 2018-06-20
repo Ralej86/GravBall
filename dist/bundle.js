@@ -130,7 +130,7 @@ class Game {
   }
 
   populateParticles() {
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 100; i++) {
       let x = Math.random() * this.ctx.canvas.width;
       let y = Math.random() * this.ctx.canvas.height;
       let dx = (Math.random() - 0.5) * 4;
@@ -260,9 +260,13 @@ class Particle {
     let dx = (gball.x - this.x);
     let dy = (gball.y - this.y);
     let dist = Math.sqrt((dx * dx) + (dy * dy));
-    if (dist > 30 ){
-      this.x += 2 * (dx / dist );
-      this.y += 2 * (dy / dist);
+
+    if (dist > 10 ){
+      this.x += 3 * (dx / dist);
+      this.y += 3 * (dy / dist);
+    } else if (dist <= 10 ) {
+      this.x = (Math.random() - 0.5) * (4 * this.ctx.canvas.width);
+      this.y = (Math.random() - 0.5) * (4 * this.ctx.canvas.height);
     }
   }
 
@@ -271,21 +275,20 @@ class Particle {
     let dy = this.y - this.oldY;
     this.oldX = this.x;
     this.oldY = this.y;
-    this.x += dx;
-    this.y += dy;
-
+    this.x += dx/3;
+    this.y += dy/3;
   }
 
   update() {
     this.draw();
 
-    if (this.x + this.radius > this.ctx.canvas.width || this.x - this.radius < 0) {
-      this.dx = -this.dx;
-    }
-
-    if (this.y + this.radius > this.ctx.canvas.height || this.y - this.radius < 0) {
-      this.dy = -this.dy;
-    }
+    // if (this.x + this.radius > this.ctx.canvas.width || this.x - this.radius < 0) {
+    //   this.dx = -this.dx;
+    // }
+    //
+    // if (this.y + this.radius > this.ctx.canvas.height || this.y - this.radius < 0) {
+    //   this.dy = -this.dy;
+    // }
 
     this.x += this.dx;
     this.y += this.dy;
