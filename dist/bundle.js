@@ -91,15 +91,22 @@ document.addEventListener("DOMContentLoaded", () => {
   canvas.width = 900;
 
   let ctx = canvas.getContext("2d");
+  let mouse = {
+    x: undefined,
+    y: undefined,
+  }
 
+  window.addEventListener('mousedown', (event) => {
 
-  // window.addEventListener('mousedown', (event) => {
-  //
-  // })
+    mouse.x = event.x;
+    mouse.y = event.y;
+    game.populateGravityBall(mouse.x, mouse.y)
+    console.log("clicked");
+    console.log(mouse)
+  })
 
   let game = new _game_js__WEBPACK_IMPORTED_MODULE_1__["default"](ctx);
   game.populateParticles();
-  game.populateGravityBall();
   game.animate();
 })
 
@@ -139,8 +146,8 @@ class Game {
     }
   }
 
-  populateGravityBall() {
-    this.gravityBalls.push(new _gravity_ball_js__WEBPACK_IMPORTED_MODULE_1__["default"](this.ctx));
+  populateGravityBall(x, y) {
+    this.gravityBalls.push(new _gravity_ball_js__WEBPACK_IMPORTED_MODULE_1__["default"](this.ctx, x, y));
   }
 
   animate() {
@@ -157,19 +164,14 @@ class Game {
         for (var j = 0; j < this.gravityBalls.length; j++) {
           this.particles[i].attract(this.gravityBalls[j]);
           this.particles[i].integrate();
-          this.particles[i].update();
         }
+      this.particles[i].update();
 
       } else {
         this.particles[i].update();
       }
-      // this.particles[i].attract();
-      // this.particles[i].integrate();
     }
-    //
-    // for (var i = 0; i < this.gravityBalls.length; i++) {
-    //   this.gravityBalls[i].update();
-    // }
+
 
   }
 }
@@ -189,13 +191,11 @@ class Game {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 class GravityBall{
-  constructor(ctx) {
+  constructor(ctx, x, y) {
     this.ctx = ctx;
-    this.x = Math.random() * 200;
-    this.y = Math.random() * 200;
+    this.x = x;
+    this.y = y;
     this.radius = 15;
-    this.dx = 0;
-    this.dy = 0;
 
     this.update = this.update.bind(this);
     this.animate = this.animate.bind(this);
