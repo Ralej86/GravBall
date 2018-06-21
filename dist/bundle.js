@@ -100,31 +100,19 @@ document.addEventListener("DOMContentLoaded", () => {
   let delay = 200;
 
   window.addEventListener('click', (event) => {
-    // mouse.x = event.x;
-    // mouse.y = event.y;
 
     timer = setTimeout(() => {
       if (!stop) {
         game.populateGravityBall(event.x, event.y)
-        // game.populateGravityBall(event.x + 370, event.y + 175.5)
       }
       stop = false;
     }, delay);
-
-    // console.log("clicked");
-    // console.log(mouse);
   })
 
   window.addEventListener('dblclick', (event) => {
-    // mouse.x = event.x;
-    // mouse.y = event.y;
     clearTimeout(timer);
     stop = true;
     game.removeGravityBall(event.x, event.y)
-    // game.removeGravityBall(event.x + 370, event.y + 175.5)
-
-    // console.log("double-click");
-    // console.log(mouse);
   })
 
   let game = new _game_js__WEBPACK_IMPORTED_MODULE_1__["default"](ctx);
@@ -160,7 +148,7 @@ class Game {
 
   populateParticles() {
     let colorArr = ['#ffaa33', '#99ffaaa', '#00ff00', '#4411aa', '#ff1100'];
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 400; i++) {
       let x = Math.random() * this.ctx.canvas.width;
       let y = Math.random() * this.ctx.canvas.height;
       let dx = (Math.random() - 0.5) * 4;
@@ -192,10 +180,10 @@ class Game {
     this.ctx.clearRect(0,0,this.ctx.canvas.width, this.ctx.canvas.height);
 
     for (var j = 0; j < this.gravityBalls.length; j++) {
-      if (this.gravityBalls[j].radius > 50) {
+      this.gravityBalls[j].update();
+      if (this.gravityBalls[j].radius > 45) {
         this.gravityBalls.splice(j,1);
       }
-      this.gravityBalls[j].update();
     }
 
     if (this.gravityBalls.length > 1) {
@@ -208,7 +196,7 @@ class Game {
                 this.gravityBalls[k].radius += 5;
                 this.gravityBalls.splice(i,1);
               } else {
-                this.gravityBalls[i].radius += 5;
+                this.gravityBalls[i].radius += 3;
                 this.gravityBalls.splice(k,1);
               }
             }
