@@ -162,7 +162,7 @@ class Game {
       let dx = (Math.random() - 0.5) * 4;
       let dy = (Math.random() - 0.5) * 4
       let color = colorArr[Math.floor(Math.random() * colorArr.length)]
-      this.particles.push(new _particle_js__WEBPACK_IMPORTED_MODULE_0__["default"](this.ctx, x, y, 4, dx, dy, color))
+      this.particles.push(new _particle_js__WEBPACK_IMPORTED_MODULE_0__["default"](this.ctx, x, y, 3, dx, dy, color))
     }
   }
 
@@ -352,8 +352,8 @@ class Particle {
 
   update() {
     this.draw();
-    this.history.splice(2, this.history.length);
-    this.history.unshift(new Particle(this.ctx, this.x, this.y, this.radius - (this.radius/2),
+    this.history.splice(1, this.history.length);
+    this.history.unshift(new Particle(this.ctx, this.x, this.y, this.radius,
     this.dx,this.dy, this.color));
 
     for (var i = 0; i < this.history.length; i++) {
