@@ -87,7 +87,7 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener("DOMContentLoaded", () => {
   let canvas = document.getElementById("canvas")
-  canvas.height = 600;
+  canvas.height = window.innerHeight;
   canvas.width = window.innerWidth;
 
   let ctx = canvas.getContext("2d");
@@ -240,9 +240,9 @@ class GravityBall{
   draw() {
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    this.ctx.fillStyle = "black";
+    this.ctx.fillStyle = "#0d0d0d";
     this.ctx.fill();
-    this.ctx.strokeStyle = "black";
+    this.ctx.strokeStyle = "#262626";
     this.ctx.stroke();
   }
 
