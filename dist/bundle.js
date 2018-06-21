@@ -160,7 +160,7 @@ class Game {
 
   populateParticles() {
     let colorArr = ['#ffaa33', '#99ffaaa', '#00ff00', '#4411aa', '#ff1100'];
-    for (var i = 0; i < 100; i++) {
+    for (var i = 0; i < 20; i++) {
       let x = Math.random() * this.ctx.canvas.width;
       let y = Math.random() * this.ctx.canvas.height;
       let dx = (Math.random() - 0.5) * 4;
@@ -187,11 +187,34 @@ class Game {
   }
 
   animate() {
+    let combined = false;
     requestAnimationFrame(this.animate);
     this.ctx.clearRect(0,0,this.ctx.canvas.width, this.ctx.canvas.height);
 
     for (var j = 0; j < this.gravityBalls.length; j++) {
-      this.gravityBalls[j].update()
+      if (this.gravityBalls[j].radius > 50) {
+        this.gravityBalls.splice(j,1);
+      }
+      this.gravityBalls[j].update();
+    }
+
+    if (this.gravityBalls.length > 1) {
+      for (var i = 0; i < this.gravityBalls.length; i++) {
+        for (var k = 0; k < this.gravityBalls.length; k++) {
+          if (i !== k) {
+            combined = this.gravityBalls[k].attract(this.gravityBalls[i])
+            if (combined) {
+              if (this.gravityBalls[k].radius > this.gravityBalls[i].radius) {
+                this.gravityBalls[k].radius += 5;
+                this.gravityBalls.splice(i,1);
+              } else {
+                this.gravityBalls[i].radius += 5;
+                this.gravityBalls.splice(k,1);
+              }
+            }
+          }
+        }
+      }
     }
 
 
@@ -244,6 +267,20 @@ class GravityBall{
     this.ctx.fill();
     this.ctx.strokeStyle = "#262626";
     this.ctx.stroke();
+  }
+
+  attract(gball) {
+    let dx = (gball.x - this.x);
+    let dy = (gball.y - this.y);
+    let dist = Math.sqrt((dx * dx) + (dy * dy));
+    if (dist < gball.radius) {
+      let combine = true;
+      return combine;
+    } else {
+      this.x += (dx / dist);
+      this.y += (dy / dist);
+      return false;
+    }
   }
 
   update() {
@@ -299,10 +336,10 @@ class Particle {
     let dy = (gball.y - this.y);
     let dist = Math.sqrt((dx * dx) + (dy * dy));
 
-    if (dist > 10 ){
-      this.x += 3 * (dx / dist);
-      this.y += 3 * (dy / dist);
-    } else if (dist <= 15 ) {
+    if (dist > gball.radius ){
+      this.x += ((gball.radius / 5) * (dx / dist));
+      this.y += ((gball.radius / 5) * (dy / dist));
+    } else if (dist <= gball.radius ) {
       this.x = (Math.random() - 0.5) * (2 * this.ctx.canvas.width);
       this.y = (Math.random() - 0.5) * (2 * this.ctx.canvas.height);
     }
@@ -313,23 +350,20 @@ class Particle {
     let dy = this.y - this.oldY;
     this.oldX = this.x;
     this.oldY = this.y;
-    this.x += dx/3;
-    this.y += dy/3;
+    this.x += dx/2;
+    this.y += dy/2;
   }
 
   update() {
     this.draw();
-    // debugger
 
     this.history.splice(3, this.history.length);
     this.history.unshift(new Particle(this.ctx, this.x, this.y, this.radius - (this.radius/2),
     this.dx,this.dy, this.color));
 
     for (var i = 0; i < this.history.length; i++) {
-      // debugger
       this.history[i].draw()
     }
-    // debugger
 
     this.x += this.dx;
     this.y += this.dy;
