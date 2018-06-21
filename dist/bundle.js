@@ -147,15 +147,22 @@ class Game {
   }
 
   populateParticles() {
-    // let colorArr = ['#ffaa33', '#99ffaaa', '#00ff00', '#4411aa', '#ff1100'];
-    let colorArr = ['#cc0099', '#0033cc', '#ffff66', '#1affff','#ff0000'];
+    let colorArr = ['#FFFF33',
+    '#FD1C03',
+    '#00FF33',
+    '#099FFF',
+    '#FF00CC',
+    '#CC00FF',
+    '#f2f7fb',
+    '#fff',
+  ]
     for (var i = 0; i < 200; i++) {
       let x = Math.random() * this.ctx.canvas.width;
       let y = Math.random() * this.ctx.canvas.height;
       let dx = (Math.random() - 0.5) * 4;
       let dy = (Math.random() - 0.5) * 4
       let color = colorArr[Math.floor(Math.random() * colorArr.length)]
-      this.particles.push(new _particle_js__WEBPACK_IMPORTED_MODULE_0__["default"](this.ctx, x, y, 3, dx, dy, color))
+      this.particles.push(new _particle_js__WEBPACK_IMPORTED_MODULE_0__["default"](this.ctx, x, y, 4, dx, dy, color))
     }
   }
 
@@ -345,8 +352,7 @@ class Particle {
 
   update() {
     this.draw();
-
-    this.history.splice(1, this.history.length);
+    this.history.splice(2, this.history.length);
     this.history.unshift(new Particle(this.ctx, this.x, this.y, this.radius - (this.radius/2),
     this.dx,this.dy, this.color));
 
