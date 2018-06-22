@@ -22,7 +22,7 @@ GravBall was designed over a 5 day period in June, 2018.  Prior to being created
 
 ### Single click versus double click functionality
 ![double](images/double.png)
-* double click implements an event listener to call `removeGravityBall()`
+* double click invokes `removeGravityBall()` to remove a gravity ball on cursor position
 
 ![single](images/single.png)
 * Single click was more problematic in terms of keeping it bug free.  
