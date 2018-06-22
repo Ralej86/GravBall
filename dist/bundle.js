@@ -100,13 +100,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let delay = 200;
 
   window.addEventListener('click', (event) => {
-
-    timer = setTimeout(() => {
-      if (!stop) {
-        game.populateGravityBall(event.x, event.y)
-      }
-      stop = false;
-    }, delay);
+    if (event.target !== canvas) {
+      
+    } else {
+      timer = setTimeout(() => {
+        if (!stop) {
+          game.populateGravityBall(event.x, event.y)
+        }
+        stop = false;
+      }, delay);
+    }
   })
 
   window.addEventListener('dblclick', (event) => {
@@ -117,7 +120,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let game = new _game_js__WEBPACK_IMPORTED_MODULE_1__["default"](ctx);
   let slider = document.getElementsByTagName('input')[0];
-  slider.addEventListener('change', () => {game.setParticleAmount(slider.value)})
+  slider.addEventListener('change', () => {
+    game.setParticleAmount(slider.value)})
   game.populateParticles();
   game.animate();
 })
