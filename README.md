@@ -32,6 +32,8 @@ GravBall was designed over a 5 day period in June, 2018.  Prior to being created
 ## Technologies
 GravBall was made using JavaScript was used to demonstrate its power with HTML5 and Canvas.  It did not incorporate any libraries, and is able to show off the capabilities of pure JavaScript.
 
+Webpack to manage and bundle all of my files and keep everything organized.
+
 ## Future Plans
 * Vectors
   * Implement a vector class to exert better control over particle attraction
