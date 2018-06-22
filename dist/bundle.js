@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener('click', (event) => {
     if (event.target !== canvas) {
-      
+
     } else {
       timer = setTimeout(() => {
         if (!stop) {
