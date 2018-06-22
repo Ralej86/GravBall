@@ -116,6 +116,8 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   let game = new _game_js__WEBPACK_IMPORTED_MODULE_1__["default"](ctx);
+  let slider = document.getElementsByTagName('input')[0];
+  slider.addEventListener('change', () => {game.setParticleAmount(slider.value)})
   game.populateParticles();
   game.animate();
 })
@@ -137,6 +139,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+let colorArr = ['#FFFF33',
+'#FD1C03',
+'#00FF33',
+'#099FFF',
+'#FF00CC',
+'#CC00FF',
+'#f2f7fb',
+'#fff',
+]
+
 class Game {
   constructor(ctx) {
     this.ctx = ctx;
@@ -147,16 +159,7 @@ class Game {
   }
 
   populateParticles() {
-    let colorArr = ['#FFFF33',
-    '#FD1C03',
-    '#00FF33',
-    '#099FFF',
-    '#FF00CC',
-    '#CC00FF',
-    '#f2f7fb',
-    '#fff',
-  ]
-    for (var i = 0; i < 200; i++) {
+    for (var i = 0; i < 100; i++) {
       let x = Math.random() * this.ctx.canvas.width;
       let y = Math.random() * this.ctx.canvas.height;
       let dx = (Math.random() - 0.5) * 4;
@@ -164,6 +167,22 @@ class Game {
       let color = colorArr[Math.floor(Math.random() * colorArr.length)]
       this.particles.push(new _particle_js__WEBPACK_IMPORTED_MODULE_0__["default"](this.ctx, x, y, 3, dx, dy, color))
     }
+  }
+
+  setParticleAmount(number) {
+    if (this.particles.length > number) {
+      this.particles.splice(number, this.particles.length)
+    } else if (this.particles.length < number) {
+      while (this.particles.length < number) {
+        let x = Math.random() * this.ctx.canvas.width;
+        let y = Math.random() * this.ctx.canvas.height;
+        let dx = (Math.random() - 0.5) * 4;
+        let dy = (Math.random() - 0.5) * 4
+        let color = colorArr[Math.floor(Math.random() * colorArr.length)]
+        this.particles.push(new _particle_js__WEBPACK_IMPORTED_MODULE_0__["default"](this.ctx, x, y, 3, dx, dy, color))
+      }
+    }
+    debugger
   }
 
   populateGravityBall(x, y) {
