@@ -152,6 +152,7 @@ let colorArr = ['#FFFF33',
 '#f2f7fb',
 '#fff',
 ]
+// let colorArr = ["#ffffff"];
 
 class Game {
   constructor(ctx) {
@@ -163,7 +164,7 @@ class Game {
   }
 
   populateParticles() {
-    for (var i = 0; i < 100; i++) {
+    for (var i = 0; i < 50; i++) {
       let x = Math.random() * this.ctx.canvas.width;
       let y = Math.random() * this.ctx.canvas.height;
       let dx = (Math.random() - 0.5) * 4;
@@ -211,7 +212,7 @@ class Game {
 
     for (var j = 0; j < this.gravityBalls.length; j++) {
       this.gravityBalls[j].update();
-      if (this.gravityBalls[j].radius > 45) {
+      if (this.gravityBalls[j].radius > 150) {
         this.gravityBalls.splice(j,1);
       }
     }
@@ -279,12 +280,29 @@ class GravityBall{
   }
 
   draw() {
-    this.ctx.beginPath();
-    this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    this.ctx.fillStyle = "#0d0d0d";
-    this.ctx.fill();
-    this.ctx.strokeStyle = "#262626";
-    this.ctx.stroke();
+    if (this.radius > 40) {
+      this.ctx.beginPath();
+      this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      this.ctx.fillStyle = "#808080";
+      this.ctx.fill();
+      this.ctx.strokeStyle = "#ffffff";
+      this.ctx.stroke();
+      this.ctx.closePath()
+
+      this.ctx.beginPath();
+      this.ctx.arc(this.x, this.y, this.radius-3, 0, Math.PI * 2);
+      this.ctx.fillStyle = "#0d0d0d";
+      this.ctx.fill();
+      this.ctx.closePath()
+
+    } else {
+      this.ctx.beginPath();
+      this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      this.ctx.fillStyle = "#0d0d0d";
+      this.ctx.fill();
+      this.ctx.strokeStyle = "#ffffff";
+      this.ctx.stroke();
+    }
   }
 
   attract(gball) {
