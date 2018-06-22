@@ -3,6 +3,7 @@
 
 ## Description
 GravBall is an interactive animation that demonstrates the effects of gravitational attraction on floating particles.  
+![game](images/game.png)
 
 ## Project Design
 GravBall was designed over a 5 day period in June, 2018.  Prior to being created a list of minimum viable products (MVPs) was formed to demonstrate a planning process before development began.  These MVPs were monitored to ensure I was staying on track to meet the final deadline.
