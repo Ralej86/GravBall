@@ -43,6 +43,7 @@ canvas {
 }
 
 .slider datalist option {
+  padding-right: 5px;
   color: white;
 }
 
