@@ -30,9 +30,11 @@ GravBall was designed over a 5 day period in June, 2018.  Prior to being created
 * Required the use of the `setTimeout` function to check whether there was a second click.
 
 ## Technologies
-GravBall was made using JavaScript was used to demonstrate its power with HTML5 and Canvas.  It did not incorporate any libraries, and is able to show off the capabilities of pure JavaScript.
+* JavaScript
+* HTML 5 Canvas
+* Webpack
 
-Webpack to manage and bundle all of my files and keep everything organized.
+Sources: [JavaScript](https://www.javascript.com/), [Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API),  [WebPack](https://webpack.js.org/)
 
 ## Future Plans
 * Vectors
@@ -42,4 +44,4 @@ Webpack to manage and bundle all of my files and keep everything organized.
   * Additional color sets
 * Additional styling
   * Adjust colors
-  * Particle and gravity ball shape
+  * Particle and gravity ball shape/coloring
