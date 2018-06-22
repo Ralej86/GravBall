@@ -182,7 +182,6 @@ class Game {
         this.particles.push(new _particle_js__WEBPACK_IMPORTED_MODULE_0__["default"](this.ctx, x, y, 3, dx, dy, color))
       }
     }
-    debugger
   }
 
   populateGravityBall(x, y) {

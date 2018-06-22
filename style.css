@@ -41,3 +41,13 @@ canvas {
   width:25px;
   background-color: white;
 }
+
+.slider datalist option {
+  color: white;
+}
+
+.slider datalist {
+  display:flex;
+  flex-direction: row;
+  color: white;
+}
